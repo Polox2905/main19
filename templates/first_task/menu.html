@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        .header-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border: 2px solid green; /* Зелёный прямоугольник */
+            padding: 20px; /* Отступы внутри блока */
+        }
+
+
+        /* Стили для меню навигации */
+        .menu-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border: 2px solid green; /* Зелёный прямоугольник */
+            padding: 20px; /* Отступы внутри блока */
+        }
+
+        /* Стили для основного контента */
+        .content-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border: 2px solid green; /* Зелёный прямоугольник */
+            padding: 20px; /* Отступы внутри блока */
+        }
+    </style>
+</head>
+<body>
+    <!-- Блок для заголовка страницы -->
+    <div class="header-container">
+        {% block pagename %}
+        <h1>{{ page_title }}</h1>
+        {% endblock %}
+        <p style="font-size: 24px; color: red; margin-left: 200px;">pagename</p>
+    </div>
+
+    <!-- Меню навигации -->
+    <div class="menu-container">
+        {% block menu %}
+        <ul class="nav">
+            <li><a href="{% url 'platform' %}">Главная</a></li>
+            <li><a href="{% url 'games' %}">Игры</a></li>
+            <li><a href="{% url 'cart' %}">Корзина</a></li>
+        </ul>
+        {% endblock %}
+        <p style="font-size: 24px; color: red; margin-left: 375px;">menu</p>
+    </div>
+
+    <!-- Основной контент страницы -->
+    <div class="content-container">
+        {% block content %}{% endblock %}
+        <p style="font-size: 24px; color: red; margin-left: 75px;">content</p>
+    </div>
+
+</body>
+</html>

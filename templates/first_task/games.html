@@ -1,0 +1,18 @@
+{% extends 'first_task/menu.html' %}
+
+{% block title %}Список игр{% endblock %}
+
+{% block pagename %}
+<h1>Список игр</h1>
+{% endblock %}
+
+{% block content %}
+<div class="game-list">
+    {% for game in games %}
+    <div class="game-item">
+        <span class="game-info">{{ game.title }} | {{ game.description }}. Стоимость: {{ game.cost }}</span>
+        <button type="submit" formaction="{% url 'add_to_cart' game.id %}">Добавить в корзину</button>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

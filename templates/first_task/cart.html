@@ -1,0 +1,30 @@
+{% extends 'first_task/menu.html' %}
+
+{% block title %}Корзина покупок{% endblock %}
+
+{% block pagename %}
+<h1>Корзина</h1>
+{% endblock %}
+
+{% block content %}
+    {% if cart_items %}
+        <h2>Вы приобрели:</h2>
+        <ul>
+            {% for item in cart_items %}
+                <li>{{ item.name }} x {{ item.qty }} шт</li>
+            {% endfor %}
+        </ul>
+
+        <p>Общая сумма: ${{ total_price }}</p>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button>Оплатить</button>
+        </div>
+    {% else %}
+        <p style="font-size: 24px; text-align: center;">Ваша корзина пуста.</p>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="clear-cart">Очистить корзину</button>
+    </div>
+{% endblock %}
