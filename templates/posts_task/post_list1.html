@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Блог</title>
+</head>
+<body>
+    <h1>Список постов</h1>
+    <form method="GET" action="." style="margin-bottom: 20px;">
+        <label for="limit">Показывать:</label>
+        <select id="limit" name="limit" onchange="this.form.submit()">
+            <option value="2" {% if limit == '2' %}selected{% endif %}>2</option>
+            <option value="5" {% if limit == '5' %}selected{% endif %}>5</option>
+            <option value="10" {% if limit == '10' %}selected{% endif %}>10</option>
+            <option value="20" {% if limit == '20' %}selected{% endif %}>20</option>
+        </select>
+    </form>
+    {% for post in page_obj %}
+        <div>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content|truncatewords:50 }}</p>
+            <small>Опубликовано: {{ post.created_at }}</small>
+        </div>
+        <hr />
+    {% endfor %}
+
+    <!-- Пагинация -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&limit={{ limit }}">Предыдущая</a></li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Предыдущая</span></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}&limit={{ limit }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&limit={{ limit }}">Следующая</a></li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Следующая</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+</body>
+</html>
